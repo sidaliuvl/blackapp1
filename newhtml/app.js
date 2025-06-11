@@ -1,8 +1,8 @@
 // Loading screen simulation
 let loadingMessages = [
-    'CONFIGURING SECURITY PARAMETERS...',
-    'VALIDATING SECURITY PROTOCOLS...',
-    'ESTABLISHING SECURE CONNECTION...'
+    'INITIALIZING GHOST PROTOCOL...',
+    'ESTABLISHING ENCRYPTED TUNNEL...',
+    'BYPASSING SECURITY FIREWALLS...'
 ];
 
 let currentMessageIndex = 0;
@@ -50,7 +50,7 @@ function loadChatHistory() {
 
                 chatMessages.innerHTML += `
                     <div class="chat-message fade-in">
-                        <div class="username">${msg.sender_name}</div>
+                        <div class="username"><i class="fas fa-user-secret"></i> ${msg.sender_name}</div>
                         <div class="timestamp">${formattedDate}</div>
                         <div class="content">${msg.message}</div>
                     </div>
@@ -71,7 +71,7 @@ function loadAllowedGangs() {
     .then(response => response.json())
     .then(gangs => {
         const gangSelector = document.getElementById('targetGang');
-        gangSelector.innerHTML = '<option value="">-- Select Gang --</option>';
+        gangSelector.innerHTML = '<option value="">-- Select Target --</option>';
         gangs.forEach(gang => {
             gangSelector.innerHTML += `<option value="${gang}">${gang}</option>`;
         });
@@ -125,7 +125,7 @@ window.addEventListener('message', function(event) {
 
         chatMessages.innerHTML += `
             <div class="chat-message fade-in">
-                <div class="username">${event.data.message.sender || event.data.message.sender_name}</div>
+                <div class="username"><i class="fas fa-user-secret"></i> ${event.data.message.sender || event.data.message.sender_name}</div>
                 <div class="timestamp">${formattedDate}</div>
                 <div class="content">${event.data.message.message}</div>
             </div>
@@ -175,7 +175,7 @@ window.addEventListener('message', function(event) {
         document.getElementById('app-window').classList.add('fade-in');
         showApp(event.data.isManager, event.data.isHighAuthority);
     } else if (event.data.action === 'loginFailed') {
-        document.getElementById('login_error').innerText = 'ACCESS DENIED - INVALID CREDENTIALS';
+        document.getElementById('login_error').innerHTML = '<i class="fas fa-exclamation-triangle"></i> ACCESS DENIED - INVALID CREDENTIALS';
     } else if (event.data.action === 'hideApp') {
         document.body.classList.remove('visible');
     }
@@ -197,14 +197,14 @@ function showApp(isManager, isHighAuthority) {
 
     let sidebarHTML = `
         <button onclick="showTab('orders')" class="slide-in">
-            <span>📋</span> Asset Orders
+            <i class="fas fa-shopping-cart"></i> Asset Requests
         </button>
     `;
 
     if (isManager) {
         sidebarHTML += `
             <button onclick="showTab('manager')" class="slide-in">
-                <span>⚙️</span> Manage Orders
+                <i class="fas fa-cogs"></i> Order Management
             </button>
         `;
     }
@@ -212,14 +212,14 @@ function showApp(isManager, isHighAuthority) {
     if (isHighAuthority) {
         sidebarHTML += `
             <button onclick="showTab('approved')" class="slide-in">
-                <span>✅</span> Approved Orders
+                <i class="fas fa-check-circle"></i> Approved Orders
             </button>
         `;
     }
 
     sidebarHTML += `
         <button onclick="showTab('chat')" class="slide-in">
-            <span>💬</span> Communications
+            <i class="fas fa-comments"></i> Secure Comms
         </button>
     `;
 
@@ -233,31 +233,31 @@ function showTab(tab) {
     if (tab === 'orders') {
         mainContent.innerHTML = `
             <div class="fade-in">
-                <h2>Asset Request Form</h2>
+                <h2><i class="fas fa-file-contract"></i> Asset Request Terminal</h2>
                 
                 <div class="info-card">
                     <div class="flex justify-between items-center mb-3">
-                        <h3>🔒 Secure Channel</h3>
-                        <span class="status-badge status-accepted">ENCRYPTED</span>
+                        <h3><i class="fas fa-shield-alt"></i> Encrypted Channel</h3>
+                        <span class="status-badge status-accepted"><i class="fas fa-lock"></i> SECURED</span>
                     </div>
-                    <p>All communications are encrypted and monitored. Ensure request details are accurate before submission.</p>
+                    <p>All transmissions are encrypted with military-grade protocols. Ensure request specifications are accurate before transmission.</p>
                 </div>
                 
                 <div class="mb-4">
-                    <label for="asset_name">Asset Designation</label>
-                    <input type='text' id='asset_name' placeholder='Enter asset name or code...'>
+                    <label for="asset_name"><i class="fas fa-tag"></i> Asset Designation</label>
+                    <input type='text' id='asset_name' placeholder='Enter asset codename or identifier...'>
                 </div>
                 
                 <div class="mb-4">
-                    <label for="order_details">Request Details</label>
-                    <textarea id='order_details' rows='6' placeholder='Provide detailed specifications and requirements...'></textarea>
+                    <label for="order_details"><i class="fas fa-clipboard-list"></i> Mission Parameters</label>
+                    <textarea id='order_details' rows='6' placeholder='Provide detailed specifications, quantities, and operational requirements...'></textarea>
                     <div class="char-counter">
                         <span id="char-count">0</span>/500 characters
                     </div>
                 </div>
                 
                 <button onclick='submitOrder()' class="w-full">
-                    Submit Request
+                    <i class="fas fa-paper-plane"></i> Transmit Request
                 </button>
             </div>
         `;
@@ -276,10 +276,10 @@ function showTab(tab) {
     } else if (tab === 'manager') {
         mainContent.innerHTML = `
             <div class="fade-in">
-                <h2>Order Management</h2>
+                <h2><i class="fas fa-tasks"></i> Order Management Console</h2>
                 <div class="loading-state">
                     <div class="spinner"></div>
-                    <p>Loading pending orders...</p>
+                    <p>Scanning for pending operations...</p>
                 </div>
             </div>
         `;
@@ -293,12 +293,12 @@ function showTab(tab) {
             
             let content = `
                 <div class="fade-in">
-                    <h2>Order Management</h2>
+                    <h2><i class="fas fa-tasks"></i> Order Management Console</h2>
                     <div class="info-card">
                         <div class="flex justify-between items-center">
                             <div>
-                                <h3>Pending Orders</h3>
-                                <p>Review and process incoming asset requests</p>
+                                <h3><i class="fas fa-hourglass-half"></i> Pending Operations</h3>
+                                <p>Review and authorize incoming asset requests</p>
                             </div>
                             <div class="text-2xl font-bold text-center">
                                 ${pendingOrders.length}
@@ -310,9 +310,9 @@ function showTab(tab) {
             if (pendingOrders.length === 0) {
                 content += `
                     <div class="empty-state">
-                        <div class="icon">📭</div>
-                        <h3>No Pending Orders</h3>
-                        <p>All orders have been processed. New requests will appear here.</p>
+                        <i class="fas fa-inbox"></i>
+                        <h3>No Pending Operations</h3>
+                        <p>All requests have been processed. New operations will appear here for authorization.</p>
                     </div>
                 `;
             } else {
@@ -321,12 +321,12 @@ function showTab(tab) {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Player</th>
-                                    <th>Gang</th>
-                                    <th>Asset</th>
-                                    <th>Details</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
+                                    <th><i class="fas fa-user"></i> Operative</th>
+                                    <th><i class="fas fa-users"></i> Faction</th>
+                                    <th><i class="fas fa-box"></i> Asset</th>
+                                    <th><i class="fas fa-info-circle"></i> Details</th>
+                                    <th><i class="fas fa-flag"></i> Status</th>
+                                    <th><i class="fas fa-cog"></i> Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -339,11 +339,15 @@ function showTab(tab) {
                             <td>${order.gang_name}</td>
                             <td class="font-mono">${order.asset_name}</td>
                             <td>${order.order_details}</td>
-                            <td><span class="status-badge status-pending">${order.status}</span></td>
+                            <td><span class="status-badge status-pending"><i class="fas fa-clock"></i> ${order.status}</span></td>
                             <td>
                                 <div class="flex gap-2">
-                                    <button onclick="updateOrder(${order.id}, 'Accepted')" class="btn-success text-sm">Accept</button>
-                                    <button onclick="updateOrder(${order.id}, 'Rejected')" class="btn-danger text-sm">Reject</button>
+                                    <button onclick="updateOrder(${order.id}, 'Accepted')" class="btn-success text-sm">
+                                        <i class="fas fa-check"></i> Approve
+                                    </button>
+                                    <button onclick="updateOrder(${order.id}, 'Rejected')" class="btn-danger text-sm">
+                                        <i class="fas fa-times"></i> Deny
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -362,12 +366,14 @@ function showTab(tab) {
         }).catch(error => {
             mainContent.innerHTML = `
                 <div class="fade-in">
-                    <h2>Order Management</h2>
+                    <h2><i class="fas fa-tasks"></i> Order Management Console</h2>
                     <div class="empty-state">
-                        <div class="icon">⚠️</div>
+                        <i class="fas fa-exclamation-triangle"></i>
                         <h3>Connection Error</h3>
-                        <p>Unable to load orders. Please check your connection and try again.</p>
-                        <button onclick="showTab('manager')" class="mt-3">Retry</button>
+                        <p>Unable to establish secure connection. Check network status and retry.</p>
+                        <button onclick="showTab('manager')" class="mt-3">
+                            <i class="fas fa-redo"></i> Retry Connection
+                        </button>
                     </div>
                 </div>
             `;
@@ -376,10 +382,10 @@ function showTab(tab) {
     } else if (tab === 'approved') {
         mainContent.innerHTML = `
             <div class="fade-in">
-                <h2>Approved Orders</h2>
+                <h2><i class="fas fa-check-circle"></i> Approved Operations</h2>
                 <div class="loading-state">
                     <div class="spinner"></div>
-                    <p>Loading approved orders...</p>
+                    <p>Loading completed operations...</p>
                 </div>
             </div>
         `;
@@ -391,12 +397,12 @@ function showTab(tab) {
         }).then(response => response.json()).then(orders => {
             let content = `
                 <div class="fade-in">
-                    <h2>Approved Orders</h2>
+                    <h2><i class="fas fa-check-circle"></i> Approved Operations</h2>
                     <div class="info-card">
                         <div class="flex justify-between items-center">
                             <div>
-                                <h3>Completed Requests</h3>
-                                <p>Successfully processed asset orders</p>
+                                <h3><i class="fas fa-clipboard-check"></i> Completed Requests</h3>
+                                <p>Successfully authorized asset operations</p>
                             </div>
                             <div class="text-2xl font-bold text-center">
                                 ${orders.length}
@@ -408,9 +414,9 @@ function showTab(tab) {
             if (orders.length === 0) {
                 content += `
                     <div class="empty-state">
-                        <div class="icon">📋</div>
-                        <h3>No Approved Orders</h3>
-                        <p>Approved orders will be displayed here for review and management.</p>
+                        <i class="fas fa-clipboard"></i>
+                        <h3>No Approved Operations</h3>
+                        <p>Authorized operations will be displayed here for review and management.</p>
                     </div>
                 `;
             } else {
@@ -419,12 +425,12 @@ function showTab(tab) {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Player</th>
-                                    <th>Gang</th>
-                                    <th>Asset</th>
-                                    <th>Details</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
+                                    <th><i class="fas fa-user"></i> Operative</th>
+                                    <th><i class="fas fa-users"></i> Faction</th>
+                                    <th><i class="fas fa-box"></i> Asset</th>
+                                    <th><i class="fas fa-info-circle"></i> Details</th>
+                                    <th><i class="fas fa-flag"></i> Status</th>
+                                    <th><i class="fas fa-cog"></i> Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -437,9 +443,11 @@ function showTab(tab) {
                             <td>${order.gang_name}</td>
                             <td class="font-mono">${order.asset_name}</td>
                             <td>${order.order_details}</td>
-                            <td><span class="status-badge status-accepted">${order.status}</span></td>
+                            <td><span class="status-badge status-accepted"><i class="fas fa-check"></i> ${order.status}</span></td>
                             <td>
-                                <button onclick="deleteOrder(${order.id})" class="btn-danger text-sm">Delete</button>
+                                <button onclick="deleteOrder(${order.id})" class="btn-danger text-sm">
+                                    <i class="fas fa-trash"></i> Purge
+                                </button>
                             </td>
                         </tr>
                     `;
@@ -457,12 +465,14 @@ function showTab(tab) {
         }).catch(error => {
             mainContent.innerHTML = `
                 <div class="fade-in">
-                    <h2>Approved Orders</h2>
+                    <h2><i class="fas fa-check-circle"></i> Approved Operations</h2>
                     <div class="empty-state">
-                        <div class="icon">⚠️</div>
+                        <i class="fas fa-exclamation-triangle"></i>
                         <h3>Connection Error</h3>
-                        <p>Unable to load approved orders. Please check your connection and try again.</p>
-                        <button onclick="showTab('approved')" class="mt-3">Retry</button>
+                        <p>Unable to retrieve approved operations. Check network status and retry.</p>
+                        <button onclick="showTab('approved')" class="mt-3">
+                            <i class="fas fa-redo"></i> Retry Connection
+                        </button>
                     </div>
                 </div>
             `;
@@ -472,44 +482,44 @@ function showTab(tab) {
 
         mainContent.innerHTML = `
             <div class="fade-in chat-container">
-                <h2>Communications Hub</h2>
+                <h2><i class="fas fa-satellite-dish"></i> Secure Communications</h2>
                 
                 <div class="chat-type-selector">
                     ${isGangOnly ? `
                         <button class="chat-type-btn active" data-type="gang" onclick="setChatType('gang')">
-                            <span>👥</span> Gang Chat
+                            <i class="fas fa-users"></i> Faction Channel
                         </button>
                     ` : `
                         <button class="chat-type-btn ${currentChatType === 'public' ? 'active' : ''}" data-type="public" onclick="setChatType('public')">
-                            <span>🌐</span> Black Market
+                            <i class="fas fa-globe"></i> Underground Network
                         </button>
                         <button class="chat-type-btn ${currentChatType === 'gang' ? 'active' : ''}" data-type="gang" onclick="setChatType('gang')">
-                            <span>👥</span> Gang Chat
+                            <i class="fas fa-users"></i> Faction Channel
                         </button>
                         <button class="chat-type-btn ${currentChatType === 'private' ? 'active' : ''}" data-type="private" onclick="setChatType('private')">
-                            <span>🔒</span> Private Chat
+                            <i class="fas fa-lock"></i> Encrypted Direct
                         </button>
                     `}
                 </div>
                 
                 <div id="gang-selector" style="display: ${currentChatType === 'private' ? 'block' : 'none'};">
-                    <label for="targetGang">Select Target Gang</label>
+                    <label for="targetGang"><i class="fas fa-crosshairs"></i> Select Target Faction</label>
                     <select id="targetGang" onchange="loadChatHistory()">
-                        <option value="">-- Loading Gangs --</option>
+                        <option value="">-- Scanning Networks --</option>
                     </select>
                 </div>
                 
                 <div class="chat-messages" id="chatMessages">
                     <div class="loading-state">
                         <div class="spinner"></div>
-                        <p>Loading messages...</p>
+                        <p>Decrypting messages...</p>
                     </div>
                 </div>
                 
                 <div class="chat-input">
-                    <input type="text" id="chatMessageInput" placeholder="Type your message..." onkeypress="if(event.key==='Enter') sendChatMessage()">
+                    <input type="text" id="chatMessageInput" placeholder="Type encrypted message..." onkeypress="if(event.key==='Enter') sendChatMessage()">
                     <button onclick="sendChatMessage()">
-                        <span>📤</span> Send
+                        <i class="fas fa-paper-plane"></i> Transmit
                     </button>
                 </div>
             </div>
@@ -538,28 +548,34 @@ function submitOrder() {
     }).then(res => {
         document.getElementById('main-content').innerHTML = `
             <div class="success-message fade-in">
-                <div style="font-size: 64px; margin-bottom: 24px;">✅</div>
-                <h2>Request Submitted Successfully</h2>
-                <p>Your asset request has been transmitted to our operations center and is now pending review.</p>
+                <i class="fas fa-check-circle"></i>
+                <h2>Request Transmitted Successfully</h2>
+                <p>Your asset request has been encrypted and transmitted to our operations center. The request is now pending authorization.</p>
                 <div class="info-card mt-4 mb-4">
-                    <h3>Request Details</h3>
+                    <h3><i class="fas fa-info-circle"></i> Operation Details</h3>
                     <p><strong>Asset:</strong> ${assetName}</p>
-                    <p><strong>Order ID:</strong> #${Math.random().toString(36).substr(2, 9).toUpperCase()}</p>
+                    <p><strong>Operation ID:</strong> #${Math.random().toString(36).substr(2, 9).toUpperCase()}</p>
                 </div>
-                <p class="mb-4">You will be notified once your request has been processed by authorized personnel.</p>
+                <p class="mb-4">You will receive notification once your request has been processed by authorized personnel.</p>
                 <div class="flex gap-3 justify-center">
-                    <button onclick="closeApp()" class="btn-secondary">Close Terminal</button>
-                    <button onclick="showTab('orders')">Submit Another Request</button>
+                    <button onclick="closeApp()" class="btn-secondary">
+                        <i class="fas fa-power-off"></i> Close Terminal
+                    </button>
+                    <button onclick="showTab('orders')">
+                        <i class="fas fa-plus"></i> Submit New Request
+                    </button>
                 </div>
             </div>
         `;
     }).catch(error => {
         document.getElementById('main-content').innerHTML = `
             <div class="empty-state">
-                <div class="icon">❌</div>
-                <h3>Submission Failed</h3>
-                <p>Unable to submit your request. Please check your connection and try again.</p>
-                <button onclick="showTab('orders')" class="mt-3">Try Again</button>
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Transmission Failed</h3>
+                <p>Unable to transmit your request. Check network connection and retry.</p>
+                <button onclick="showTab('orders')" class="mt-3">
+                    <i class="fas fa-redo"></i> Retry Transmission
+                </button>
             </div>
         `;
     });
