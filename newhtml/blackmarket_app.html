@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackMarket - Asset Operation Center</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <!-- <div class="loading-screen" id="loading-screen">
+        <div class="loading-icon"></div>
+        <div class="loading-text" id="loading-text">CONFIGURING SECURITY PARAMETERS...</div>
+        <div class="loading-bar">
+            <div class="loading-progress" id="loading-progress"></div>
+        </div>
+    </div> -->
+
+    <!-- Login Window -->
+    <div class="main-window" id="login-window">
+        <div class="top-bar">
+            <div class="logo-section">
+                <div class="logo">OC</div>
+                <div class="app-title">ASSET OPERATION CENTER</div>
+            </div>
+            <div class="window-controls">
+                <button class="control-btn minimize-btn">-</button>
+                <button class="control-btn close-btn" onclick="closeApp()">×</button>
+            </div>
+        </div>
+        
+        <div class="window-content">
+            <div class="login-container">
+                <div class="login-header">
+                    <div style="font-size: 40px; margin-bottom: 15px;">🦅</div>
+                    <h1 class="login-title">ASSET OPERATION CENTER</h1>
+                    <p class="login-subtitle">THE Ghost Market</mark></p>
+                </div>
+                
+                <div class="login-form">
+                    <p class="identity-prompt">> Good evening, <span class="highlight">ASSET</span>. Please verify your identity.</p>
+                    <input type="password" id="login_password" placeholder="••••••••">
+                    <button onclick="submitLogin()">AUTHENTICATE</button>
+                    <p id="login_error"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- App Window -->
+    <div class="main-window" id="app-window">
+        <div class="top-bar">
+            <div class="logo-section">
+                <div class="logo">OC</div>
+                <div class="app-title">ASSET OPERATION CENTER - THE Ghost Market</div>
+            </div>
+            <div class="window-controls">
+                <button class="control-btn minimize-btn">-</button>
+                <button class="control-btn close-btn" onclick="closeApp()">×</button>
+            </div>
+        </div>
+        
+        <div class="window-content">
+            <div class="sidebar">
+                <!-- Sidebar content will be dynamically loaded -->
+            </div>
+            <div class="main" id="main-content">
+                <!-- Main content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
